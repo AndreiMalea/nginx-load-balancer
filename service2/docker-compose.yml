@@ -1,0 +1,7 @@
+version: '3'
+services:
+  service2:
+    image: service2
+    build: .
+    ports:
+      - "3001:3001"

@@ -1,0 +1,33 @@
+version: '3'
+services:
+  service1:
+    extends:
+      file: service1/docker-compose.yml
+      service: service1
+    networks:
+      - nginx-loadbalancing
+  service2:
+    extends:
+      file: service2/docker-compose.yml
+      service: service2
+    networks:
+      - nginx-loadbalancing
+  service3:
+    extends:
+      file: service3/docker-compose.yml
+      service: service3
+    networks:
+      - nginx-loadbalancing
+  nginx:
+    container_name: nginx-load-balancer
+    build: nginx
+    ports:
+      - "3030:80"
+    depends_on:
+      - service1
+      - service2
+      - service3
+    networks:
+      - nginx-loadbalancing
+networks:
+  nginx-loadbalancing:
